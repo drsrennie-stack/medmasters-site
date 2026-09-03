@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MedMasters Collaborative · Team-Based Learning coaching for medical and health science faculty</title>
+<meta name="description" content="Build deployable TBL components in 90 minutes. Team-Based Learning coaching for medical and health science faculty.">
+
+<style>
+@import url('https://cdn.jsdelivr.net/npm/@fontsource-variable/plus-jakarta-sans/index.css');
+
+
+/* === GLOBAL RESETS === */
+* { box-sizing: border-box; }
+
+/* ============ ACCESSIBILITY: KEYBOARD FOCUS ============ */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #8B3A2E;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 8px;
+  background: #0B1530;
+  color: #F5F1E8;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 4px;
+  z-index: 9999;
+  letter-spacing: 0.04em;
+}
+.skip-link:focus {
+  top: 8px;
+}
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  background: #FFFFFF;
+  color: #0B1530;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+/* === SITE HEADER === */
+.site-header {
+  background: #FFFFFF;
+  padding: 32px max(40px, 5vw);
+  border-bottom: 0.5px solid rgba(11, 21, 48, 0.08);
+}
+.site-logo {
+  display: inline-block;
+  text-decoration: none;
+}
+.site-logo svg {
+  height: 120px;
+  width: auto;
+  display: block;
+}
+
+/* Section padding harmonization */
+.hero-card, .prob-section, .hw-section, .vl-section,
+.about-section, .evidence-section, .faq-section,
+.cta-section, .footer-section {
+  padding-left: max(40px, 5vw);
+  padding-right: max(40px, 5vw);
+}
+
+/* === MOBILE: collapse multi-column grids === */
+@media (max-width: 800px) {
+  .hero-layout { grid-template-columns: 1fr !important; }
+  .site-logo svg { height: 80px; }
+  .footer-logo svg { height: 70px; }
+  .prob-grid { grid-template-columns: 1fr !important; }
+  .prob-card { border-left: none !important; padding-left: 0 !important; border-top: 0.5px solid rgba(245, 241, 232, 0.15); padding-top: 24px; margin-top: 24px; }
+  .prob-card:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+  .hw-step { grid-template-columns: 1fr !important; }
+  .vl-grid { grid-template-columns: 1fr !important; }
+  .about-layout { grid-template-columns: 1fr !important; }
+  .about-photo { max-width: 240px; }
+  .ev-grid { grid-template-columns: 1fr !important; }
+  .cta-benefits { grid-template-columns: 1fr !important; }
+  .footer-top { grid-template-columns: 1fr 1fr !important; }
+  .hero-headline { font-size: 30px !important; }
+  .cta-headline { font-size: 30px !important; }
+  .about-headline, .ev-headline, .faq-headline { font-size: 26px !important; }
+}
+
+@media (max-width: 500px) {
+  .footer-top { grid-template-columns: 1fr !important; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
+
+/* === HERO === */
+.hero-card {
+  background: #FFFFFF;
+  padding: 48px 40px;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 720px;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8B3A2E;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.hero-headline {
+  font-size: 38px;
+  font-weight: 800;
+  color: #0B1530;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin-bottom: 18px;
+}
+
+.hero-headline .accent {
+  color: #8B3A2E;
+}
+
+.hero-subhead {
+  font-size: 15px;
+  font-weight: 400;
+  color: #0B1530;
+  line-height: 1.55;
+  opacity: 0.78;
+  margin-bottom: 28px;
+  max-width: 440px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.cta-primary {
+  background: #8B3A2E;
+  color: #FFFFFF;
+  padding: 12px 22px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cta-secondary {
+  color: #0B1530;
+  padding: 12px 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(11, 21, 48, 0.4);
+  padding-bottom: 6px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.hero-visual {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* === PROBLEM === */
+.prob-section {
+  background: #060A18;
+  padding: 48px 40px;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.prob-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #C9A14A;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.prob-headline {
+  font-size: 30px;
+  font-weight: 800;
+  color: #F5F1E8;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 40px;
+  max-width: 580px;
+}
+
+.prob-headline .accent {
+  color: #8B3A2E;
+}
+
+.prob-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+}
+
+.prob-card {
+  padding: 0 20px;
+  border-left: 0.5px solid rgba(245, 241, 232, 0.15);
+}
+
+.prob-card:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.prob-num {
+  font-size: 56px;
+  font-weight: 800;
+  color: #8B3A2E;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.prob-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #F5F1E8;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.prob-body {
+  font-size: 13px;
+  font-weight: 400;
+  color: #F5F1E8;
+  opacity: 0.72;
+  line-height: 1.6;
+}
+
+/* === HOW_IT_WORKS === */
+.hw-section {
+  background: #FFFFFF;
+  padding: 48px 40px;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.hw-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8B3A2E;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.hw-headline {
+  font-size: 30px;
+  font-weight: 800;
+  color: #0B1530;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 38px;
+  max-width: 580px;
+}
+
+.hw-headline .accent { color: #8B3A2E; }
+
+.hw-step {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 24px;
+  padding: 22px 0;
+  border-top: 0.5px solid rgba(11, 21, 48, 0.12);
+  align-items: start;
+}
+
+.hw-step:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.hw-step:last-of-type {
+  padding-bottom: 0;
+}
+
+.hw-num {
+  font-size: 54px;
+  font-weight: 800;
+  color: #8B3A2E;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+}
+
+.hw-content {
+  padding-top: 6px;
+}
+
+.hw-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0B1530;
+  letter-spacing: -0.015em;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.hw-desc {
+  font-size: 14px;
+  font-weight: 400;
+  color: #0B1530;
+  opacity: 0.78;
+  line-height: 1.55;
+  max-width: 480px;
+}
+
+/* === VALUE_LADDER === */
+.vl-section {
+  background: #FFFFFF;
+  padding: 48px 40px;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.vl-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8B3A2E;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.vl-headline {
+  font-size: 30px;
+  font-weight: 800;
+  color: #0B1530;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 36px;
+  max-width: 560px;
+}
+
+.vl-headline .accent {
+  color: #8B3A2E;
+}
+
+.vl-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.vl-card {
+  background: #FFFFFF;
+  border: 0.5px solid rgba(11, 21, 48, 0.15);
+  border-radius: 8px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.vl-card.featured {
+  border: 2px solid #8B3A2E;
+}
+
+.vl-badge {
+  position: absolute;
+  top: -10px;
+  left: 22px;
+  background: #8B3A2E;
+  color: #FFFFFF;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 3px;
+}
+
+.vl-badge.value {
+  background: #0B1530;
+}
+
+.vl-num {
+  font-size: 28px;
+  font-weight: 800;
+  color: #8B3A2E;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.vl-tier {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0B1530;
+  letter-spacing: -0.015em;
+  margin-bottom: 8px;
+}
+
+.vl-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: #8B3A2E;
+  margin-bottom: 14px;
+}
+
+.vl-tagline {
+  font-size: 13px;
+  font-weight: 400;
+  color: #0B1530;
+  opacity: 0.78;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.vl-divider {
+  height: 0.5px;
+  background: rgba(11, 21, 48, 0.15);
+  margin-bottom: 14px;
+}
+
+.vl-includes {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #0B1530;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+
+.vl-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.vl-list li {
+  font-size: 12px;
+  font-weight: 500;
+  color: #0B1530;
+  line-height: 1.5;
+  padding: 4px 0;
+}
+
+.vl-cta {
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: auto;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.cta-outline {
+  background: transparent;
+  color: #0B1530;
+  border: 0.5px solid rgba(11, 21, 48, 0.4);
+}
+
+.cta-tc {
+  background: #8B3A2E;
+  color: #FFFFFF;
+}
+
+.cta-nv {
+  background: #0B1530;
+  color: #FFFFFF;
+}
+
+.vl-aside {
+  text-align: center;
+  font-size: 12px;
+  color: #0B1530;
+  opacity: 0.65;
+  font-weight: 500;
+}
+
+.vl-aside a {
+  color: #8B3A2E;
+  font-weight: 700;
+}
+
+/* === ABOUT === */
+.about-section {
+  background: #060A18;
+  padding: 48px 40px;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.about-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #C9A14A;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.about-headline {
+  font-size: 30px;
+  font-weight: 800;
+  color: #F5F1E8;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 38px;
+  max-width: 580px;
+}
+
+.about-headline .accent { color: #8B3A2E; }
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.about-photo {
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+.about-bio {
+  font-size: 14px;
+  font-weight: 400;
+  color: #F5F1E8;
+  opacity: 0.85;
+  line-height: 1.7;
+  margin-bottom: 26px;
+}
+
+.about-quote {
+  padding: 12px 0;
+  margin: 6px 0 30px;
+}
+
+.about-quote-text {
+  font-size: 24px;
+  font-weight: 800;
+  color: #8B3A2E;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.about-cta {
+  font-size: 11px;
+  font-weight: 700;
+  color: #C9A14A;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #C9A14A;
+  padding-bottom: 4px;
+  display: inline-block;
+}
+
+/* === EVIDENCE === */
+.evidence-section {
+  background: #FFFFFF;
+  padding: 56px 48px;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.ev-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8B3A2E;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.ev-headline {
+  font-size: 32px;
+  font-weight: 800;
+  color: #0B1530;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 18px;
+  max-width: 640px;
+}
+
+.ev-headline .accent { color: #8B3A2E; }
+
+.ev-subhead {
+  font-size: 15px;
+  font-weight: 400;
+  color: #0B1530;
+  opacity: 0.7;
+  line-height: 1.55;
+  max-width: 620px;
+  margin-bottom: 44px;
+}
+
+.ev-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(11, 21, 48, 0.12);
+  border: 0.5px solid rgba(11, 21, 48, 0.12);
+}
+
+.ev-card {
+  background: #FFFFFF;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ev-card-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #8B3A2E;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.ev-card-finding {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0B1530;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+.ev-card-cite {
+  font-size: 10px;
+  font-weight: 700;
+  color: #0B1530;
+  opacity: 0.55;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-top: auto;
+  padding-top: 14px;
+  line-height: 1.5;
+}
+
+.ev-footer {
+  margin-top: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ev-footer-note {
+  font-size: 13px;
+  font-weight: 400;
+  color: #0B1530;
+  opacity: 0.6;
+  line-height: 1.5;
+  max-width: 420px;
+}
+
+.ev-footer-cta {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8B3A2E;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #8B3A2E;
+  padding-bottom: 4px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* === FAQ === */
+.faq-section {
+  background: #FFFFFF;
+  padding: 56px 48px;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.faq-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8B3A2E;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.faq-headline {
+  font-size: 32px;
+  font-weight: 800;
+  color: #0B1530;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 40px;
+  max-width: 640px;
+}
+
+.faq-headline .accent { color: #8B3A2E; }
+
+.faq-list {
+  border-top: 0.5px solid rgba(11, 21, 48, 0.15);
+}
+
+.faq-item {
+  border-bottom: 0.5px solid rgba(11, 21, 48, 0.15);
+}
+
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 22px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-q {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0B1530;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.faq-toggle {
+  font-size: 22px;
+  font-weight: 400;
+  color: #8B3A2E;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+  line-height: 1;
+}
+
+.faq-item[open] .faq-toggle {
+  transform: rotate(45deg);
+}
+
+.faq-a {
+  font-size: 14px;
+  font-weight: 400;
+  color: #0B1530;
+  opacity: 0.75;
+  line-height: 1.65;
+  padding: 0 0 24px 0;
+  max-width: 720px;
+}
+
+.faq-footer {
+  margin-top: 36px;
+  font-size: 13px;
+  color: #0B1530;
+  opacity: 0.7;
+}
+
+.faq-footer a {
+  color: #8B3A2E;
+  border-bottom: 1px solid #8B3A2E;
+  padding-bottom: 1px;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* === FINAL_CTA === */
+.cta-section {
+  background: #060A18;
+  padding: 72px 48px;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  text-align: center;
+}
+
+.cta-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #C9A14A;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.cta-headline {
+  font-size: 38px;
+  font-weight: 800;
+  color: #F5F1E8;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0 auto 22px;
+  max-width: 680px;
+}
+
+.cta-headline .accent { color: #8B3A2E; }
+
+.cta-subhead {
+  font-size: 16px;
+  font-weight: 400;
+  color: #F5F1E8;
+  opacity: 0.75;
+  line-height: 1.6;
+  margin: 0 auto 48px;
+  max-width: 560px;
+}
+
+.cta-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  max-width: 740px;
+  margin: 0 auto 52px;
+  text-align: left;
+}
+
+.cta-benefit {
+  border-top: 1px solid rgba(245, 241, 232, 0.18);
+  padding-top: 18px;
+}
+
+.cta-benefit-num {
+  font-size: 10px;
+  font-weight: 700;
+  color: #C9A14A;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.cta-benefit-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: #F5F1E8;
+  opacity: 0.85;
+  letter-spacing: -0.005em;
+  line-height: 1.5;
+}
+
+.cta-form {
+  display: flex;
+  gap: 10px;
+  max-width: 520px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cta-form-wrap {
+  max-width: 520px;
+  margin: 0 auto 16px;
+}
+
+.cta-input {
+  flex: 1;
+  min-width: 260px;
+  background: #FFFFFF;
+  border: none;
+  padding: 16px 18px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0B1530;
+  letter-spacing: -0.005em;
+  border-radius: 4px;
+}
+
+.cta-input::placeholder {
+  color: rgba(11, 21, 48, 0.45);
+}
+
+.cta-button {
+  background: #8B3A2E;
+  color: #F5F1E8;
+  border: none;
+  padding: 16px 26px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cta-button:hover {
+  background: #a04539;
+}
+
+.cta-privacy {
+  font-size: 11px;
+  font-weight: 500;
+  color: #F5F1E8;
+  opacity: 0.5;
+  letter-spacing: 0.04em;
+  margin-top: 20px;
+}
+
+/* === FOOTER === */
+.footer-section {
+  background: #060A18;
+  padding: 56px 48px 32px;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(245, 241, 232, 0.15);
+  margin-bottom: 24px;
+}
+
+.footer-brand-eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  color: #F5F1E8;
+  opacity: 0.55;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.footer-wordmark {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.footer-wordmark .med { color: #F5F1E8; }
+.footer-wordmark .masters { color: #8B3A2E; }
+
+.footer-logo {
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 18px;
+}
+.footer-logo svg {
+  height: 90px;
+  width: auto;
+  display: block;
+}
+
+.footer-tagline {
+  font-size: 13px;
+  font-weight: 400;
+  color: #F5F1E8;
+  opacity: 0.7;
+  line-height: 1.55;
+  max-width: 280px;
+}
+
+.footer-col-header {
+  font-size: 10px;
+  font-weight: 700;
+  color: #C9A14A;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.footer-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: #F5F1E8;
+  opacity: 0.75;
+  display: block;
+  margin-bottom: 9px;
+  text-decoration: none;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+}
+
+.footer-link:hover {
+  opacity: 1;
+}
+
+.footer-social {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.footer-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #C9A14A;
+  opacity: 0.85;
+  border-radius: 4px;
+  transition: opacity 0.15s, color 0.15s, background 0.15s;
+  text-decoration: none;
+}
+
+.footer-icon:hover {
+  opacity: 1;
+  color: #F5F1E8;
+  background: rgba(245, 241, 232, 0.06);
+}
+
+.footer-icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.footer-copyright {
+  font-size: 11px;
+  font-weight: 500;
+  color: #F5F1E8;
+  opacity: 0.5;
+  letter-spacing: 0.04em;
+}
+
+.footer-cohort {
+  font-size: 11px;
+  font-weight: 700;
+  color: #C9A14A;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.footer-legal {
+  display: flex;
+  gap: 18px;
+}
+
+.footer-legal a {
+  font-size: 11px;
+  font-weight: 500;
+  color: #F5F1E8;
+  opacity: 0.5;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.footer-legal a:hover {
+  opacity: 0.85;
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<!-- === SITE HEADER === -->
+<header class="site-header">
+  <a href="index.html" class="site-logo" aria-label="MedMasters Collaborative home">
+    <svg viewBox="0 0 720 200" role="img" aria-hidden="true">
+      <g transform="translate(0, 18)">
+        <g transform="translate(60, 0) rotate(8 0 130)">
+          <circle cx="0" cy="20" r="10" fill="#0B1530"/>
+          <path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/>
+        </g>
+        <g transform="translate(100, 0)">
+          <circle cx="0" cy="10" r="11" fill="#8B3A2E"/>
+          <path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/>
+        </g>
+        <g transform="translate(140, 0) rotate(-8 0 130)">
+          <circle cx="0" cy="20" r="10" fill="#C9A14A"/>
+          <path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/>
+        </g>
+      </g>
+      <g transform="translate(240, 0)">
+        <text x="0" y="118" font-size="80" font-weight="800" letter-spacing="-2" font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif">
+          <tspan fill="#0B1530">Med</tspan><tspan fill="#8B3A2E">Masters</tspan>
+        </text>
+        <text x="0" y="165" font-size="22" font-weight="700" letter-spacing="6" fill="#0B1530" opacity="0.78" font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif">COLLABORATIVE</text>
+      </g>
+    </svg>
+  </a>
+</header>
+
+<main id="main">
+
+<!-- === HERO === -->
+<div class="hero-card">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Team-Based Learning · Medical &amp; Health Science Faculty</div>
+    <h1 class="hero-headline">
+      Build a deployable TBL component in <span class="accent">90 minutes</span>. The piece you actually need today.
+    </h1>
+    <div class="hero-subhead">
+      Team-Based Learning replaces passive lecture with structured team problem-solving and peer accountability. Project Lab sessions pair you with a TBL expert and an AI hub tool. Bring your content. Leave with a deployable, accessible, Canvas-ready artifact.
+    </div>
+    <div class="hero-ctas">
+      <a href="https://www.medmasterscollaborative.com/free-primer" class="cta-primary">New to TBL? Start the free primer</a>
+      <a href="programs.html" class="cta-secondary">See Project Lab sessions</a>
+    </div>
+  </div>
+</div>
+
+<!-- === PROBLEM === -->
+<div class="prob-section">
+  <div class="prob-eyebrow">Where the work breaks down</div>
+  <h2 class="prob-headline">You weren't <span class="accent">trained</span> in this. You don't have to invent it <span class="accent">alone</span>.</h2>
+  <div class="prob-grid">
+    <div class="prob-card">
+      <div class="prob-num">01</div>
+      <div class="prob-title">40 hours per module.</div>
+      <div class="prob-body">Building one solid active learning opportunity can take 30 to 40 hours. The next one starts close to scratch. Materials never quite compound.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-num">02</div>
+      <div class="prob-title">Prompting is a skill.</div>
+      <div class="prob-body">Faculty are told to use AI without being shown how. Outputs come back generic, inaccessible, or pedagogically thin. The work piles up.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-num">03</div>
+      <div class="prob-title">No system, no peers.</div>
+      <div class="prob-body">Most active learning gets built in isolation. No peer review, no shared templates, no faculty community. Every educator reinvents the wheel.</div>
+    </div>
+  </div>
+</div>
+
+<!-- === HOW_IT_WORKS === -->
+<div class="hw-section">
+  <div class="hw-eyebrow">How the build works</div>
+  <h2 class="hw-headline">From your <span class="accent">content</span> to your <span class="accent">classroom</span> in 90 minutes.</h2>
+  <div class="hw-step">
+    <div class="hw-num">01</div>
+    <div class="hw-content">
+      <div class="hw-title">Bring your content.</div>
+      <div class="hw-desc">Your course learning objectives plus links to your study guide, lecture, or syllabus. No prep beyond that.</div>
+    </div>
+  </div>
+  <div class="hw-step">
+    <div class="hw-num">02</div>
+    <div class="hw-content">
+      <div class="hw-title">Refine the inputs together.</div>
+      <div class="hw-desc">The hub tool's intake plus expert coaching sharpens objectives, audience, and pedagogical fit.</div>
+    </div>
+  </div>
+  <div class="hw-step">
+    <div class="hw-num">03</div>
+    <div class="hw-content">
+      <div class="hw-title">AI does the heavy lifting.</div>
+      <div class="hw-desc">The tool generates the prompt; AI builds the first draft. You stay in command of tone and depth.</div>
+    </div>
+  </div>
+  <div class="hw-step">
+    <div class="hw-num">04</div>
+    <div class="hw-content">
+      <div class="hw-title">Review, refine, and ship.</div>
+      <div class="hw-desc">Live coaching shapes the final artifact. Leave with HTML, the accessible companion doc, and Canvas-ready embed code.</div>
+    </div>
+  </div>
+</div>
+
+<!-- === VALUE_LADDER === -->
+<div class="vl-section">
+  <div class="vl-eyebrow">Three ways in</div>
+  <h2 class="vl-headline">Start with a <span class="accent">session</span>. Stay for a <span class="accent">system</span>.</h2>
+  <div class="vl-grid">
+    <div class="vl-card">
+      <div class="vl-num">01</div>
+      <div class="vl-tier">Project Lab</div>
+      <div class="vl-price">$147 first / $87 alumni</div>
+      <div class="vl-tagline">Build one active learning artifact in 90 minutes. Expert coaching plus an AI hub tool that handles the build.</div>
+      <div class="vl-divider"></div>
+      <div class="vl-includes">Includes</div>
+      <ul class="vl-list">
+        <li>90-minute live session</li>
+        <li>Generated HTML + accessible doc</li>
+        <li>Canvas-ready embed</li>
+        <li>Your content, your branding</li>
+      </ul>
+      <a href="schedule.html" class="vl-cta cta-outline">Reserve a seat</a>
+    </div>
+
+    <div class="vl-card featured">
+      <span class="vl-badge">Recommended</span>
+      <div class="vl-num">02</div>
+      <div class="vl-tier">Project Sprint</div>
+      <div class="vl-price">$1,995 · 30 days</div>
+      <div class="vl-tagline">Build a complete TBL module in 30 days with weekly coaching and a cohort that holds you to it.</div>
+      <div class="vl-divider"></div>
+      <div class="vl-includes">Includes</div>
+      <ul class="vl-list">
+        <li>4 weekly group coaching calls</li>
+        <li>Complete module build</li>
+        <li>Faculty cohort + peer review</li>
+        <li>Template library + checklist</li>
+      </ul>
+      <a href="programs.html#sprint" class="vl-cta cta-tc">Apply for next cohort</a>
+    </div>
+
+    <div class="vl-card">
+      <span class="vl-badge value">Best value</span>
+      <div class="vl-num">03</div>
+      <div class="vl-tier">Annual Member</div>
+      <div class="vl-price">$5,995 · academic year</div>
+      <div class="vl-tagline">Ten-month academic-year membership for faculty consistently shipping quality modules across their full course.</div>
+      <div class="vl-divider"></div>
+      <div class="vl-includes">Includes</div>
+      <ul class="vl-list">
+        <li>10 monthly build cycles</li>
+        <li>Unlimited office hours</li>
+        <li>Complete course pathway</li>
+        <li>Priority community access</li>
+      </ul>
+      <a href="programs.html#annual" class="vl-cta cta-nv">Schedule a fit call</a>
+    </div>
+  </div>
+  <div class="vl-aside">Need a custom 90-minute intensive? <a>Book a 1:1 →</a></div>
+</div>
+
+<!-- === ABOUT === -->
+<div class="about-section">
+  <div class="about-eyebrow">About Sharilyn</div>
+  <h2 class="about-headline">Twenty years at the <span class="accent">bedside</span>. A decade in <span class="accent">classrooms</span>. One method.</h2>
+  <div class="about-layout">
+    <div class="about-photo">
+      <img src="https://raw.githubusercontent.com/drsrennie-stack/STAT/main/sharilyn.jpg" alt="Sharilyn Rennie, ND" />
+    </div>
+    <div>
+      <div class="about-bio">I'm Sharilyn Rennie, ND, a physician-trained educator. My clinical background is in bedside military medicine, with a short period of practice in functional medicine. For over ten years, I've taught anatomy, physiology, and the medical sciences across California community colleges and graduate health-science programs.</div>
+      <div class="about-quote">
+        <div class="about-quote-text">Student success starts with faculty.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- === EVIDENCE === -->
+<div class="evidence-section">
+  <div class="ev-eyebrow">Why this works</div>
+  <h2 class="ev-headline">TBL is the most-studied <span class="accent">active learning</span> method in medical education.</h2>
+  <div class="ev-subhead">Peer-reviewed studies show meaningful gains in exam performance, knowledge acquisition, and engagement across the health sciences.</div>
+  
+  <div class="ev-grid">
+    <div class="ev-card">
+      <div class="ev-card-label">01 · Board exam performance</div>
+      <div class="ev-card-finding">NBME subject exam scores in TBL anatomy were significantly higher than in lecture-based preclinical courses, with progressive gains over five years of data.</div>
+      <div class="ev-card-cite">Vasan, DeFouw &amp; Compton · 2011<br/>Anatomical Sciences Education</div>
+    </div>
+    <div class="ev-card">
+      <div class="ev-card-label">02 · Across the literature</div>
+      <div class="ev-card-finding">Systematic review across PubMed, SCOPUS, ERIC, and Cochrane found significant improvement in exam performance and significant superiority to control groups.</div>
+      <div class="ev-card-cite">Chytas et al. · 2023<br/>Morphologie</div>
+    </div>
+    <div class="ev-card">
+      <div class="ev-card-label">03 · Engagement &amp; learning</div>
+      <div class="ev-card-finding">Students reported 91.5% knowledge acquisition, 89.1% peer learning, and 87.2% content engagement in team-based clinical scenarios.</div>
+      <div class="ev-card-cite">Al-Badri, Davila &amp; Castorina · 2025<br/>Anatomical Sciences Education</div>
+    </div>
+    <div class="ev-card">
+      <div class="ev-card-label">04 · Across the health sciences</div>
+      <div class="ev-card-finding">Statistically significant satisfaction across MBBS, Nursing, Pharm D, and Medical Laboratory Sciences programs (mean ratings 4.1 to 4.9 on a 5-point scale).</div>
+      <div class="ev-card-cite">Al-Neklawy &amp; Ismail · 2021<br/>Clinical Anatomy</div>
+    </div>
+  </div>
+  
+  <div class="ev-footer">
+    <div class="ev-footer-note">A full annotated bibliography is included in every Project Sprint and Annual Membership.</div>
+    <a class="ev-footer-cta" href="mailto:srennie@medmasterscollaborative.com?subject=Citations%20brief%20request">Request the citations brief →</a>
+  </div>
+</div>
+
+<!-- === FAQ === -->
+<div class="faq-section" id="faq">
+  <div class="faq-eyebrow">Faculty questions</div>
+  <h2 class="faq-headline">What faculty want to know <span class="accent">upfront</span>.</h2>
+  
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>
+        <div class="faq-q">Will this work with my Canvas LMS?</div>
+        <div class="faq-toggle">+</div>
+      </summary>
+      <div class="faq-a">Yes. Every artifact embeds in Canvas via iframe and is tested against Canvas's default Content Security Policy. If your institution's IT has locked down external iframes, you receive the source files to host on your own infrastructure. The accessible companion document drops directly into Canvas Pages.</div>
+    </details>
+    
+    <details class="faq-item">
+      <summary>
+        <div class="faq-q">Do I have to redesign my whole course, or can I add TBL to a class I've already built?</div>
+        <div class="faq-toggle">+</div>
+      </summary>
+      <div class="faq-a">No, you don't have to redesign anything. Most faculty start by adding one TBL module to a course they've already built, often replacing a single lecture or unit. Project Lab is designed for incremental adoption: build one module, test it with students, then decide whether to expand. Everything else in your course stays exactly as it is.</div>
+    </details>
+    
+    <details class="faq-item">
+      <summary>
+        <div class="faq-q">What exactly do I receive after a Project Lab session?</div>
+        <div class="faq-toggle">+</div>
+      </summary>
+      <div class="faq-a">Three things: a deployable interactive HTML artifact with a live URL ready for Canvas, an accessible companion document, and the underlying source files. You walk out of the 90-minute session with a working component, not a draft. Combine multiple Lab components over the semester, or move to Project Sprint to integrate them all into a complete TBL module across 30 days.</div>
+    </details>
+    
+    <details class="faq-item">
+      <summary>
+        <div class="faq-q">Is the output accessible? WCAG 2.1 and Section 508?</div>
+        <div class="faq-toggle">+</div>
+      </summary>
+      <div class="faq-a">We design every artifact to meet WCAG 2.1 and Section 508 standards. The interactive artifact uses semantic HTML, color contrast, keyboard navigation, and alt-text. Every deliverable includes a companion document with full text content and screen-reader-friendly structure. We do not certify formal compliance, since institutional accessibility standards and audit processes vary. If your institution's accessibility review identifies issues, we will revise the artifact at no additional cost or provide an alternative deliverable that meets your institutional requirements.</div>
+    </details>
+    
+    <details class="faq-item">
+      <summary>
+        <div class="faq-q">Do I need any technical skills?</div>
+        <div class="faq-toggle">+</div>
+      </summary>
+      <div class="faq-a">None. You don't touch code, GitHub, or any AI prompt directly. You bring your content and learning objectives. We build the artifact during the live session, you review and refine it, then we publish to a live URL ready for Canvas.</div>
+    </details>
+    
+    <details class="faq-item">
+      <summary>
+        <div class="faq-q">Who owns what I create?</div>
+        <div class="faq-toggle">+</div>
+      </summary>
+      <div class="faq-a">You do. Every artifact you build belongs to you. Your content, your learning objectives, your final say on edits. You can use it across courses, share it with your department, or include it in your accreditation portfolio.</div>
+    </details>
+    
+    <details class="faq-item">
+      <summary>
+        <div class="faq-q">How is this different from using ChatGPT myself?</div>
+        <div class="faq-toggle">+</div>
+      </summary>
+      <div class="faq-a">Two things. First, TBL methodology is built into how each artifact is structured: readiness assurance, application exercises, and peer accountability are designed into the output rather than bolted on. Second, you're not prompting alone. You're working alongside someone who knows both the pedagogy and the tooling, so the result is a defensible TBL artifact, not a generic worksheet.</div>
+    </details>
+  </div>
+  
+  <div class="faq-footer">
+    Have a different question? <a href="mailto:srennie@medmasterscollaborative.com?subject=Question%20about%20MedMasters">EMAIL SHARILYN DIRECTLY →</a>
+  </div>
+</div>
+
+<!-- === FINAL_CTA === -->
+<div class="cta-section">
+  <div class="cta-eyebrow">Founding cohort</div>
+  <h2 class="cta-headline">Start with the <span class="accent">primer</span>. Stay for the <span class="accent">first cohort</span>.</h2>
+  <div class="cta-subhead">Five short emails on TBL fundamentals, plus a free Course Branding Tool on Day 1 and first access to the founding Project Lab cohort opening July 16, 2026.</div>
+  
+  <div class="cta-benefits">
+    <div class="cta-benefit">
+      <div class="cta-benefit-num">01 · Founding price</div>
+      <div class="cta-benefit-text">Pay alumni rate ($87 vs $147) from day one. That pricing is locked in permanently.</div>
+    </div>
+    <div class="cta-benefit">
+      <div class="cta-benefit-num">02 · A voice in the roadmap</div>
+      <div class="cta-benefit-text">Help choose which Project Labs come next: Essay &amp; Long-Answer Grading, Concept Lecture Video Player, Application Exercise Builder, Readiness Assurance Engine.</div>
+    </div>
+    <div class="cta-benefit">
+      <div class="cta-benefit-num">03 · Personal review</div>
+      <div class="cta-benefit-text">One-on-one feedback from Sharilyn on your first deployed module.</div>
+    </div>
+  </div>
+  
+  <div class="cta-form-wrap">
+    <script src="https://www.medmasterscollaborative.com/forms/2149577159/embed.js"></script>
+  </div>
+  <div class="cta-privacy">Five emails over eight days. Unsubscribe with one click. We never sell your email.</div>
+</div>
+
+<!-- === FOOTER === -->
+</main>
+
+<footer class="footer-section">
+  <div class="footer-top">
+    <div>
+      <a href="index.html" class="footer-logo" aria-label="MedMasters Collaborative home">
+        <svg viewBox="0 0 720 200" role="img" aria-hidden="true">
+          <g transform="translate(0, 18)">
+            <g transform="translate(60, 0) rotate(8 0 130)">
+              <circle cx="0" cy="20" r="10" fill="#F5F1E8"/>
+              <path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#F5F1E8"/>
+            </g>
+            <g transform="translate(100, 0)">
+              <circle cx="0" cy="10" r="11" fill="#8B3A2E"/>
+              <path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/>
+            </g>
+            <g transform="translate(140, 0) rotate(-8 0 130)">
+              <circle cx="0" cy="20" r="10" fill="#C9A14A"/>
+              <path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/>
+            </g>
+          </g>
+          <g transform="translate(240, 0)">
+            <text x="0" y="118" font-size="80" font-weight="800" letter-spacing="-2" font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif">
+              <tspan fill="#F5F1E8">Med</tspan><tspan fill="#8B3A2E">Masters</tspan>
+            </text>
+            <text x="0" y="165" font-size="22" font-weight="700" letter-spacing="6" fill="#F5F1E8" opacity="0.78" font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif">COLLABORATIVE</text>
+          </g>
+        </svg>
+      </a>
+      <div class="footer-tagline">Team-Based Learning coaching for medical and health science faculty.</div>
+    </div>
+    <div>
+      <div class="footer-col-header">Programs</div>
+      <a class="footer-link" href="programs.html#lab">Project Lab</a>
+      <a class="footer-link" href="schedule.html">Lab schedule</a>
+      <a class="footer-link" href="programs.html#sprint">Project Sprint</a>
+      <a class="footer-link" href="programs.html#annual">Annual Member</a>
+    </div>
+    <div>
+      <div class="footer-col-header">Resources</div>
+      <a class="footer-link" href="https://www.medmasterscollaborative.com/free-primer">Free TBL primer</a>
+      <a class="footer-link" href="index.html#faq">FAQ</a>
+      <a class="footer-link" href="https://www.medmasterscollaborative.com/free-primer">About Sharilyn</a>
+    </div>
+    <div>
+      <div class="footer-col-header">Connect</div>
+      <a class="footer-link" href="mailto:srennie@medmasterscollaborative.com">Email</a>
+      <a class="footer-link" href="schedule.html">Cohort calendar</a>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/profile.php?id=61589619240720" class="footer-icon" aria-label="Facebook" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/sharilyn-rennie-3921124" class="footer-icon" aria-label="LinkedIn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-header">Legal &amp; policies</div>
+      <a class="footer-link" href="https://www.medmasterscollaborative.com/medmasters-collaborative-privacy-policy">Privacy policy</a>
+      <a class="footer-link" href="https://www.medmasterscollaborative.com/medmasters-collaborative-terms-of-service">Terms of service</a>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <div class="footer-copyright">© 2026 MedMasters Collaborative LLC</div>
+    <div class="footer-cohort">Founding cohort · Jul 16, 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
